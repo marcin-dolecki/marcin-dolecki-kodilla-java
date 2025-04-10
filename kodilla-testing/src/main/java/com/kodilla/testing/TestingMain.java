@@ -4,31 +4,15 @@ import com.kodilla.testing.calculator.Calculator;
 
 public class TestingMain {
     public static void main(String[] args) {
-        // SimpleUser
+//        Calculator calculator = new Calculator();
+//        int a = calculator.add(1, 2);
+//        System.out.println(a);
         SimpleUser simpleUser = new SimpleUser("theForumUser");
-        String result = simpleUser.getUsername();
 
-        if (result.equals("theForumUser")) {
-            System.out.println("test OK");
-        } else {
-            System.out.println("test FAILED!");
-        }
+        String username = simpleUser.getUsername();
+        String realName = simpleUser.getRealName();
 
-        // Calculator
-        Calculator calculator = new Calculator();
-        int resultOfAddition = calculator.add(10, 20);
-        int resultOfSubtraction = calculator.subtract(10, 20);
-
-        if (resultOfAddition == 30) {
-            System.out.println("test OK");
-        } else {
-            System.out.println("test FAILED!");
-        }
-
-        if (resultOfSubtraction == -10) {
-            System.out.println("test OK");
-        } else {
-            System.out.println("test FAILED!");
-        }
+        System.out.println(username);
+        System.out.println(realName);
     }
 }
