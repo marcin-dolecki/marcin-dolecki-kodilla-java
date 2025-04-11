@@ -1,18 +1,29 @@
 package com.kodilla.testing;
-import com.kodilla.testing.user.SimpleUser;
-import com.kodilla.testing.calculator.Calculator;
+import com.kodilla.testing.collection.OddNumbersExterminator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TestingMain {
     public static void main(String[] args) {
-//        Calculator calculator = new Calculator();
-//        int a = calculator.add(1, 2);
-//        System.out.println(a);
-        SimpleUser simpleUser = new SimpleUser("theForumUser");
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(4);
+        numbers.add(5);
+        numbers.add(6);
+        numbers.add(7);
 
-        String username = simpleUser.getUsername();
-        String realName = simpleUser.getRealName();
+        List<Integer> numbers2 = Arrays.asList(8,9,10,11,12,13);
 
-        System.out.println(username);
-        System.out.println(realName);
+        System.out.println(numbers);
+        System.out.println(numbers2);
+
+        OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
+        List<Integer> evenNumbersList = oddNumbersExterminator.exterminate(numbers);
+        List<Integer> evenNumbersList2 = oddNumbersExterminator.exterminate(numbers2);
+        System.out.println(evenNumbersList);
+        System.out.println(evenNumbersList2);
     }
 }
