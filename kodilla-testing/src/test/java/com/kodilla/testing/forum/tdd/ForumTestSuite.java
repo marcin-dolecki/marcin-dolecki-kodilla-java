@@ -5,7 +5,7 @@ import com.kodilla.testing.forum.ForumPost;
 import com.kodilla.testing.forum.ForumUser;
 import org.junit.jupiter.api.*;
 
-@DisplayName("TDD: Forum Test Suite \uD83D\\uDE31")
+@DisplayName("TDD: Forum Test Suite \uD83D\uDE31")
 class ForumTestSuite {
     private static int testCounter = 0;
 
@@ -20,9 +20,9 @@ class ForumTestSuite {
     }
 
     @BeforeEach
-    public void beforeEveryTest() {
+    public void beforeEveryTest(TestInfo testInfo) {
         testCounter++;
-        System.out.println("Preparing to execute test #" + testCounter);
+        System.out.println("Preparing to execute test #" + testCounter + " " + testInfo.getDisplayName());
     }
 
     @Test
@@ -76,7 +76,7 @@ class ForumTestSuite {
                 "mrsmith");
         ForumComment theComment = new ForumComment(thePost, "mrsmith",
                 "Thank you for all good words!");
-        forumUser.addComment(thePost, thePost.getAuthor(), theComment.getCommentBody());
+        forumUser.addComment(thePost, theComment.getAuthor(), theComment.getCommentBody());
 
         //When
         ForumComment retrievedComment = forumUser.getComment(0);
