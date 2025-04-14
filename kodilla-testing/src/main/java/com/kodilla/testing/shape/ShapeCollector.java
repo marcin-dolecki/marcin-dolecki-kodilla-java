@@ -2,12 +2,26 @@ package com.kodilla.testing.shape;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ShapeCollector {
     private List<Shape> shapes = new ArrayList<>();
     private String allShapesJoined = "";
 
     public ShapeCollector() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ShapeCollector that = (ShapeCollector) o;
+        return Objects.equals(shapes, that.shapes) && Objects.equals(allShapesJoined, that.allShapesJoined);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(shapes, allShapesJoined);
     }
 
     public void addFigure(Shape shape) {
