@@ -4,9 +4,11 @@ import java.util.Objects;
 
 public class ShapeSquare implements Shape {
     private int a;
+    private final String shapeName;
 
     public ShapeSquare(int a) {
         this.a = a;
+        this.shapeName = "Square";
     }
 
     @Override
@@ -24,7 +26,7 @@ public class ShapeSquare implements Shape {
 
     @Override
     public String getShapeName() {
-        return "";
+        return shapeName;
     }
 
     @Override

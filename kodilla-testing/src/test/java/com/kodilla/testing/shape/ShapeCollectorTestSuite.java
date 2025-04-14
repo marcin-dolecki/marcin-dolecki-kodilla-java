@@ -246,7 +246,7 @@ class ShapeCollectorTestSuite {
     @DisplayName("Tests for showing figures")
     class TestShowFigures {
         @Test
-        void testShowSquare() {
+        void testShowFigures() {
             //Given
             ShapeCollector collector = new ShapeCollector();
             ShapeSquare shapeSquare = new ShapeSquare(5);

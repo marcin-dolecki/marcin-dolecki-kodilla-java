@@ -24,7 +24,7 @@ public class ShapeCircle implements Shape {
 
     @Override
     public String getShapeName() {
-        return "";
+        return "Circle";
     }
 
     @Override

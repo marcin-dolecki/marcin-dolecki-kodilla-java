@@ -1,5 +1,11 @@
 package com.kodilla.testing;
 import com.kodilla.testing.collection.OddNumbersExterminator;
+import com.kodilla.testing.shape.ShapeCircle;
+import com.kodilla.testing.shape.ShapeCollector;
+import com.kodilla.testing.shape.ShapeSquare;
+import com.kodilla.testing.shape.ShapeTriangle;
+import com.kodilla.testing.shape.Shape;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
