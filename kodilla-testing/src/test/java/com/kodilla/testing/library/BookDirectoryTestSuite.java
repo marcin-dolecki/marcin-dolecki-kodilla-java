@@ -65,7 +65,6 @@ class BookDirectoryTestSuite {
     @Test
     void testListBooksWithConditionFragmentShorterThan3() {
         //Given
-        LibraryDatabase libraryDatabaseMock = mock(LibraryDatabase.class);
         BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
 
         //When
@@ -79,9 +78,10 @@ class BookDirectoryTestSuite {
     @Test
     void testListBooksInHandsOfNoBooks() {
         //Given
-        LibraryDatabase libraryDatabaseMock = mock(LibraryDatabase.class);
         BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+        List<Book> resultListOf0Books = new ArrayList<>();
         LibraryUser user = new LibraryUser("firstName", "lastName", "1234567890");
+        when(libraryDatabaseMock.listBooksInHandsOf(user)).thenReturn(resultListOf0Books);
 
         //When
         List<Book> theListOfBooks0 = bookLibrary.listBooksInHandsOf(user);
@@ -93,9 +93,10 @@ class BookDirectoryTestSuite {
     @Test
     void testListBooksInHandsOf1Book() {
         //Given
-        LibraryDatabase libraryDatabaseMock = mock(LibraryDatabase.class);
         BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+        List<Book> resultListOf1Book = generateListOfNBooks(1);
         LibraryUser user = new LibraryUser("firstName", "lastName", "1234567890");
+        when(libraryDatabaseMock.listBooksInHandsOf(user)).thenReturn(resultListOf1Book);
 
         //When
         List<Book> theListOfBooks1 = bookLibrary.listBooksInHandsOf(user);
@@ -107,9 +108,10 @@ class BookDirectoryTestSuite {
     @Test
     void testListBooksInHandsOf5Books() {
         //Given
-        LibraryDatabase libraryDatabaseMock = mock(LibraryDatabase.class);
         BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+        List<Book> resultListOf5Books = generateListOfNBooks(5);
         LibraryUser user = new LibraryUser("firstName", "lastName", "1234567890");
+        when(libraryDatabaseMock.listBooksInHandsOf(user)).thenReturn(resultListOf5Books);
 
         //When
         List<Book> theListOfBooks5 = bookLibrary.listBooksInHandsOf(user);
