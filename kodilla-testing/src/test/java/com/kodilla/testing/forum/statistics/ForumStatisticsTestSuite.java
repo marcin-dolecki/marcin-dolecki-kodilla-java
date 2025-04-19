@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -45,7 +46,7 @@ class ForumStatisticsTestSuite {
         forumStatistics.calculateAdvStatistics(statisticsMock);
 
         //Then
-        assertEquals(24.0, forumStatistics.getAvgPostsPerUser());
+        assertEquals(20.0, forumStatistics.getAvgPostsPerUser());
     }
 
     @Test
@@ -63,7 +64,63 @@ class ForumStatisticsTestSuite {
         assertEquals(0, forumStatistics.getAvgCommentsPerUser());
     }
 
+    @Test
+    void testWhenCommentsLessThanPosts() {
+        //Given
+        when(statisticsMock.postsCount()).thenReturn(100);
+        when(statisticsMock.commentsCount()).thenReturn(50);
+        when(statisticsMock.userNames()).thenReturn(generateUserList(10));
 
+        //When
+        forumStatistics.calculateAdvStatistics(statisticsMock);
+
+        //Then
+        assertTrue(forumStatistics.getAvgCommentsPerPost() < 1);
+    }
+
+    @Test
+    void testWhenCommentsGreaterThanPosts() {
+        //Given
+        when(statisticsMock.postsCount()).thenReturn(50);
+        when(statisticsMock.commentsCount()).thenReturn(150);
+        when(statisticsMock.userNames()).thenReturn(generateUserList(10));
+
+        //When
+        forumStatistics.calculateAdvStatistics(statisticsMock);
+
+        //Then
+        assertTrue(forumStatistics.getAvgCommentsPerPost() > 1);
+    }
+
+    @Test
+    void testWhenUserCountIsZero() {
+        //Given
+        when(statisticsMock.postsCount()).thenReturn(50);
+        when(statisticsMock.commentsCount()).thenReturn(150);
+        when(statisticsMock.userNames()).thenReturn(new ArrayList<>());
+
+        //When
+        forumStatistics.calculateAdvStatistics(statisticsMock);
+
+        //Then
+        assertEquals(0, forumStatistics.getAvgPostsPerUser());
+        assertEquals(0, forumStatistics.getAvgCommentsPerUser());
+    }
+
+    @Test
+    void testWhenUserCountIsHundred() {
+        //Given
+        when(statisticsMock.postsCount()).thenReturn(1000);
+        when(statisticsMock.commentsCount()).thenReturn(500);
+        when(statisticsMock.userNames()).thenReturn(generateUserList(100));
+
+        //When
+        forumStatistics.calculateAdvStatistics(statisticsMock);
+
+        //Then
+        assertEquals(10.0, forumStatistics.getAvgPostsPerUser());
+        assertEquals(5.0, forumStatistics.getAvgCommentsPerUser());
+    }
 
 
     private List<String> generateUserList(int quantity) {
