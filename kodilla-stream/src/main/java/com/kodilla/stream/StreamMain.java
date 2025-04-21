@@ -16,9 +16,7 @@ import java.util.List;
 public class StreamMain {
     public static void main(String[] args) {
         People.getList().stream()
-//                .map(s -> s.toUpperCase())
-                .map(String::toUpperCase)
-//                .forEach(System.out::println);
-                .forEach(s -> System.out.println(s));
+                .filter(s -> s.length() > 11)
+                .forEach(System.out::println);
     }
 }
