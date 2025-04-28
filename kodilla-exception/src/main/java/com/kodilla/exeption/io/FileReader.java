@@ -1,6 +1,7 @@
 package com.kodilla.exeption.io;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,7 +12,14 @@ public class FileReader {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("names.txt").getFile());
         Path path = Paths.get(file.getPath());
-        Stream<String> fileLines = Files.lines(path);
+//        Path path = Paths.get("wrong_file.txt");
+
+        try {
+            Stream<String> fileLines = Files.lines(path);
+            System.out.println(fileLines);
+        } catch (IOException e) {
+            System.out.println("Błąd odczytu pliku");
+        }
 
         System.out.println(file.getPath());
     }
