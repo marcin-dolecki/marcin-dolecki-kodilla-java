@@ -12,11 +12,10 @@ public class FileReader {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("names.txt").getFile());
         Path path = Paths.get(file.getPath());
-//        Path path = Paths.get("wrong_file.txt");
 
         try {
             Stream<String> fileLines = Files.lines(path);
-            System.out.println(fileLines);
+            fileLines.forEach(System.out::println);
         } catch (IOException e) {
             System.out.println("Błąd odczytu pliku");
         }
