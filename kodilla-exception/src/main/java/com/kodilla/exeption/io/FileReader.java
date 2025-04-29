@@ -12,8 +12,8 @@ public class FileReader {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("names.txt").getFile());
 
-//        try (Stream<String> fileLines = Files.lines(Paths.get(file.getPath()))) {
-        try (Stream<String> fileLines = Files.lines(Paths.get("other_file.txt"))) {
+        try (Stream<String> fileLines = Files.lines(Paths.get(file.getPath()))) {
+//        try (Stream<String> fileLines = Files.lines(Paths.get("other_file.txt"))) {
             fileLines.forEach(System.out::println);
         } catch (IOException e) {
             throw new FileReaderException();
