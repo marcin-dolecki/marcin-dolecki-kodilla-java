@@ -12,7 +12,7 @@ public class ExceptionHandling {
             System.out.println("2nd call - 2,3");
             status = secondChallenge.probablyIWillThrowException(2,3);
             System.out.println(status);
-        } catch (Exception e) {
+        } catch (SecondChallengeException e) {
             System.out.println("Exception " + e);
         } finally {
             System.out.println("Final block processed.");
