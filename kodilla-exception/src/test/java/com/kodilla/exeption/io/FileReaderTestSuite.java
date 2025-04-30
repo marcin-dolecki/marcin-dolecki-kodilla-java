@@ -35,13 +35,26 @@ class FileReaderTestSuite {
     }
 
     @Test
+    void testReadFileFewAsserts() {
+        //when & then
+        assertDoesNotThrow(() -> fileReader.readFile());
+        assertDoesNotThrow(() -> fileReader.readFile("names.txt"));
+        assertThrows(FileReaderException.class, () -> fileReader.readFile("wrong_file.txt"));
+        assertThrows(FileReaderException.class, () -> fileReader.readFile(null));
+    }
+
+    /*
+    assertAll is better choice because it shows at once all the errors. without this, when we have multiple asserts then
+    testing is stopped at first error occurrence
+    */
+    @Test
     void testReadFileAll() {
         //when & then
         assertAll(
-            () -> assertDoesNotThrow(() -> fileReader.readFile()),
-            () -> assertDoesNotThrow(() -> fileReader.readFile("names.txt")),
-            () -> assertThrows(FileReaderException.class, () -> fileReader.readFile("wrong_file.txt")),
-            () -> assertThrows(FileReaderException.class, () -> fileReader.readFile(null))
+                () -> assertDoesNotThrow(() -> fileReader.readFile()),
+                () -> assertDoesNotThrow(() -> fileReader.readFile("names.txt")),
+                () -> assertThrows(FileReaderException.class, () -> fileReader.readFile("wrong_file.txt")),
+                () -> assertThrows(FileReaderException.class, () -> fileReader.readFile(null))
         );
     }
 }
