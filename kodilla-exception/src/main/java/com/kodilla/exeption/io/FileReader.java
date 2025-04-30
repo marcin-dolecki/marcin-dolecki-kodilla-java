@@ -23,4 +23,16 @@ public class FileReader {
 
         System.out.println(file.getPath());
     }
+
+    public void readFile(final String filename) throws FileReaderException {
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        try (Stream<String> fileLines = Files.lines(Path.of(classLoader.getResource(filename).toURI()))) {
+            fileLines.forEach(System.out::println);
+        } catch (Exception e) {
+            throw new FileReaderException();
+        } finally {
+            System.out.println("I am here always");
+        }
+    }
 }
