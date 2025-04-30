@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FileReaderTestSuite {
     FileReader fileReader;
@@ -33,5 +32,16 @@ class FileReaderTestSuite {
     void testReadFileWithWrongFileName() {
         //when & then
         assertThrows(FileReaderException.class, () -> fileReader.readFile("wrong_file.txt"));
+    }
+
+    @Test
+    void testReadFileAll() {
+        //when & then
+        assertAll(
+            () -> assertDoesNotThrow(() -> fileReader.readFile()),
+            () -> assertDoesNotThrow(() -> fileReader.readFile("names.txt")),
+            () -> assertThrows(FileReaderException.class, () -> fileReader.readFile("wrong_file.txt")),
+            () -> assertThrows(FileReaderException.class, () -> fileReader.readFile(null))
+        );
     }
 }
