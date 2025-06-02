@@ -1,4 +1,6 @@
-package com.kodilla.good.patterns.food.ordering.supplier;
+package com.kodilla.good.patterns.food.ordering.service;
+
+import com.kodilla.good.patterns.food.ordering.supplier.Supplier;
 
 import java.util.HashMap;
 import java.util.Map;

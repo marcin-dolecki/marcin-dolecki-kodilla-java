@@ -1,4 +1,4 @@
-package com.kodilla.good.patterns.food.ordering.db;
+package com.kodilla.good.patterns.food.ordering.repository;
 
 import com.kodilla.good.patterns.food.ordering.model.Order;
 

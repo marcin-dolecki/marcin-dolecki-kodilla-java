@@ -4,10 +4,10 @@ import com.kodilla.good.patterns.food.ordering.model.Order;
 import com.kodilla.good.patterns.food.ordering.model.OrderRequest;
 import com.kodilla.good.patterns.food.ordering.ui.UserInterface;
 
-public class SimpleInformationService implements InformationService {
+public class StandardInformationService implements InformationService {
     private final UserInterface ui;
 
-    public SimpleInformationService(UserInterface ui) {
+    public StandardInformationService(UserInterface ui) {
         this.ui = ui;
     }
 
