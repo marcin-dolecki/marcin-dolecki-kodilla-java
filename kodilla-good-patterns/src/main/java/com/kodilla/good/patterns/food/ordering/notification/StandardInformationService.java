@@ -24,7 +24,7 @@ public class StandardInformationService implements InformationService {
 
     @Override
     public void notifySupplier(OrderRequest orderRequest, String supplierName) {
-        String msg = "[Notification->Supplier:  " + supplierName + "] "
+        String msg = "[Notification->Supplier: " + supplierName + "] "
                 + "New order: " + orderRequest.getProductName()
                 + " x " + orderRequest.getQuantity()
                 + " from customer: " + orderRequest.getCustomer() + ".";

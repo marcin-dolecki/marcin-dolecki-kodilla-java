@@ -11,6 +11,10 @@ public final class SupplierFactory {
 
     private SupplierFactory() {/* private constructor */}
 
+    public static void registerSupplier(Supplier supplier) {
+        registry.put(supplier.getName(), supplier);
+    }
+
     public static Optional<Supplier> getSupplier(String supplierName) {
         return Optional.ofNullable(registry.get(supplierName));
     }
