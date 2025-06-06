@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-/* INJECTION BY CONSTRUCTOR
+/* INJECTION BY CONSTRUCTOR (THE BEST CHOICE) */
 @Service
 public final class Library {
     private final List<String> books = new ArrayList<>();
@@ -24,9 +24,8 @@ public final class Library {
         libraryDbController.loadData();
     }
 }
-*/
 
-/* INJECTION BY CONSTRUCTOR WITH AUTOWIRED
+/* INJECTION BY CONSTRUCTOR WITH AUTOWIRED (THE BEST CHOICE)
 @Service
 public final class Library {
     private final List<String> books = new ArrayList<>();
@@ -51,7 +50,7 @@ public final class Library {
 }
  */
 
-/* INJECTION BY METHOD (NOT RECOMMENDED) */
+/* INJECTION BY METHOD (NOT RECOMMENDED)
 @Service
 public final class Library {
     private final List<String> books = new ArrayList<>();
@@ -70,3 +69,23 @@ public final class Library {
         libraryDbController.loadData();
     }
 }
+*/
+
+/* INJECTION INTO CLASS PROPERTIES (VERY NOT RECOMMENDED)
+@Service
+public final class Library {
+    private final List<String> books = new ArrayList<>();
+
+    @Autowired
+    private LibraryDbController libraryDbController;
+
+    public void saveToDb() {
+        libraryDbController.saveData();
+    }
+
+    public void loadFromDb() {
+        libraryDbController.loadData();
+    }
+}
+
+ */
