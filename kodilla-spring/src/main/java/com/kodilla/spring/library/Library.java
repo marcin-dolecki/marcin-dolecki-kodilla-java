@@ -26,6 +26,7 @@ public final class Library {
 }
 */
 
+/* INJECTION BY CONSTRUCTOR WITH AUTOWIRED
 @Service
 public final class Library {
     private final List<String> books = new ArrayList<>();
@@ -38,6 +39,27 @@ public final class Library {
 
     public Library() {
         // do nothing
+    }
+
+    public void saveToDb() {
+        libraryDbController.saveData();
+    }
+
+    public void loadFromDb() {
+        libraryDbController.loadData();
+    }
+}
+ */
+
+/* INJECTION BY METHOD (NOT RECOMMENDED) */
+@Service
+public final class Library {
+    private final List<String> books = new ArrayList<>();
+    private LibraryDbController libraryDbController;
+
+    @Autowired
+    public void setLibraryDbController(LibraryDbController libraryDbController) {
+        this.libraryDbController = libraryDbController;
     }
 
     public void saveToDb() {
