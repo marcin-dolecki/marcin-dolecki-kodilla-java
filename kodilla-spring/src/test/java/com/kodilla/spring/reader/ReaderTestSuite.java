@@ -14,4 +14,12 @@ class ReaderTestSuite {
 
         reader.read();
     }
+
+    @Test
+    void testConditional() {
+        ApplicationContext context = new AnnotationConfigApplicationContext(ReaderConfig.class);
+        boolean book2Exists = context.containsBean("book2");
+
+        System.out.println("Is the bean book2 exist in the container? " + book2Exists);
+    }
 }
