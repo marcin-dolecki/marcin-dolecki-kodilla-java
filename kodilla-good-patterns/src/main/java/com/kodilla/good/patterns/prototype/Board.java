@@ -1,0 +1,44 @@
+package com.kodilla.good.patterns.prototype;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+public final class Board {
+    private final String name;
+    private final Set<TaskList> lists = new HashSet<>();
+
+    public Board(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Set<TaskList> getLists() {
+        return lists;
+    }
+
+    @Override
+    public String toString() {
+        String s = "Board [" + name + "]\n";
+        for (TaskList list : lists) {
+            s = s + list.toString() + "\n";
+        }
+        return s;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Board board = (Board) o;
+        return Objects.equals(name, board.name) && Objects.equals(lists, board.lists);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, lists);
+    }
+}
