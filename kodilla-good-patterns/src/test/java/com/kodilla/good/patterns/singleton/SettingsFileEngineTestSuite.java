@@ -12,7 +12,10 @@ class SettingsFileEngineTestSuite {
 
     @BeforeAll
     public static void openSettingsFile() {
+        /* OLD VERSION --> without singleton
         settingsFileEngine = new SettingsFileEngine();
+         */
+        settingsFileEngine = SettingsFileEngine.INSTANCE;
         settingsFileEngine.open("myapp.settings");
     }
 
