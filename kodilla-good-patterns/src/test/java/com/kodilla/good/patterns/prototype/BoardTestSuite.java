@@ -40,8 +40,15 @@ class BoardTestSuite {
         System.out.println(board);
         System.out.println(clonedBoard);
 
-        assertEquals(3, board.getLists().size());
+        // be careful! swallow cloning, copy references to other classes (no creating the new ones).
+        // so doing change on the new board, we are changing also first board
+        board.getLists().remove(listToDo);
+
+        System.out.println(board);
+        System.out.println(clonedBoard);
+
+        assertEquals(2, board.getLists().size());
         assertNotNull(clonedBoard);
-        assertEquals(3, clonedBoard.getLists().size());
+        assertEquals(2, clonedBoard.getLists().size());
     }
 }
