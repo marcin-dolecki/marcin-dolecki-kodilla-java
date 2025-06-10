@@ -37,8 +37,17 @@ class BoardTestSuite {
             System.out.println("Error:" + e);
         }
 
+        Board deepClonedBoard = null;
+        try {
+            deepClonedBoard = board.deepCopy();
+            deepClonedBoard.setName("Project number 3");
+        } catch (CloneNotSupportedException e) {
+            System.out.println("Error:" + e);
+        }
+
         System.out.println(board);
         System.out.println(clonedBoard);
+        System.out.println(deepClonedBoard);
 
         // be careful! swallow cloning, copy references to other classes (no creating the new ones).
         // so doing change on the new board, we are changing also first board
@@ -46,9 +55,12 @@ class BoardTestSuite {
 
         System.out.println(board);
         System.out.println(clonedBoard);
+        System.out.println(deepClonedBoard);
 
         assertEquals(2, board.getLists().size());
         assertNotNull(clonedBoard);
         assertEquals(2, clonedBoard.getLists().size());
+        assertNotNull(deepClonedBoard);
+        assertEquals(3, deepClonedBoard.getLists().size());
     }
 }
