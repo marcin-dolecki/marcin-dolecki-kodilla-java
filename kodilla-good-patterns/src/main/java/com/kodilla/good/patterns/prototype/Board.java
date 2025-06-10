@@ -4,11 +4,15 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public final class Board {
-    private final String name;
+public final class Board extends Prototype<Board> {
+    private String name;
     private final Set<TaskList> lists = new HashSet<>();
 
     public Board(String name) {
+        this.name = name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -27,6 +31,10 @@ public final class Board {
             s = s + list.toString() + "\n";
         }
         return s;
+    }
+
+    public Board shallowCopy() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override

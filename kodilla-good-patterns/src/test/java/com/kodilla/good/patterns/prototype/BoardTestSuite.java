@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.IntStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class BoardTestSuite {
     @Test
@@ -27,8 +28,20 @@ class BoardTestSuite {
         board.getLists().add(listToDo);
         board.getLists().add(listInProgress);
         board.getLists().add(listDone);
+
+        Board clonedBoard = null;
+        try {
+            clonedBoard = board.shallowCopy();
+            clonedBoard.setName("Project number 2");
+        } catch (CloneNotSupportedException e) {
+            System.out.println("Error:" + e);
+        }
+
         System.out.println(board);
+        System.out.println(clonedBoard);
 
         assertEquals(3, board.getLists().size());
+        assertNotNull(clonedBoard);
+        assertEquals(3, clonedBoard.getLists().size());
     }
 }
