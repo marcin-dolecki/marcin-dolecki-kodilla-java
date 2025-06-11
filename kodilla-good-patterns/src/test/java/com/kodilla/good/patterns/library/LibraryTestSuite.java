@@ -15,7 +15,7 @@ class LibraryTestSuite {
         IntStream.iterate(1, n -> n + 1)
                 .limit(10)
                 .forEach(n -> library.getBooks().add(new Book("Book " + n, "Author " + n, LocalDate.of(1990 + n, 1, 1))));
-        
+
         Library shallowClonedLibrary = null;
         try {
             shallowClonedLibrary = library.shallowCopy();
