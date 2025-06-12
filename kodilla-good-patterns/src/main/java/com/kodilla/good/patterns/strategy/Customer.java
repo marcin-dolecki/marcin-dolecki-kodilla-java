@@ -1,6 +1,7 @@
 package com.kodilla.good.patterns.strategy;
 
-public class Customer {
+public sealed class Customer
+        permits CorporateCustomer, IndividualCustomer, IndividualYoungCustomer {
     private final String name;
     protected BuyPredictor buyPredictor;
 
