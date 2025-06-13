@@ -7,12 +7,37 @@ import java.util.List;
 public final class Pizza {
     private final String bottom;
     private final String sauce;
-    private final List<String> ingredients = new ArrayList<>();
+    private List<String> ingredients = new ArrayList<>();
 
-    public Pizza(final String bottom, final String sauce, final String... ingredients) {
+    public static class PizzaBuilder {
+        private String bottom;
+        private String sauce;
+        private List<String> ingredients = new ArrayList<>();
+
+        public PizzaBuilder bottom(String bottom) {
+            this.bottom = bottom;
+            return this;
+        }
+
+        public PizzaBuilder sauce(String sauce) {
+            this.sauce = sauce;
+            return this;
+        }
+
+        public PizzaBuilder ingredient(String ingredient) {
+            this.ingredients.add(ingredient);
+            return this;
+        }
+
+        public Pizza build() {
+            return new Pizza(bottom, sauce, ingredients);
+        }
+    }
+
+    private Pizza(final String bottom, final String sauce, final List<String> ingredients) {
         this.bottom = bottom;
         this.sauce = sauce;
-        this.ingredients.addAll(Arrays.asList(ingredients));
+        this.ingredients = new ArrayList<>(ingredients);
     }
 
     public String getBottom() {
