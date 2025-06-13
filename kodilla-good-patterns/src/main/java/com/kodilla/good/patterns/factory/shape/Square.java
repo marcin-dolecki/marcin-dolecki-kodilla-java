@@ -1,14 +1,12 @@
-package com.kodilla.good.patterns.factory;
+package com.kodilla.good.patterns.factory.shape;
 
-public final class Rectangle implements Shape {
+public final class Square implements Shape {
     private final String name;
     private final double width;
-    private final double length;
 
-    public Rectangle(final String name, final double width, final double length) {
+    public Square(final String name, final double width) {
         this.name = name;
         this.width = width;
-        this.length = length;
     }
 
     @Override
@@ -18,11 +16,11 @@ public final class Rectangle implements Shape {
 
     @Override
     public double getArea() {
-        return width * length;
+        return Math.pow(width, 2);
     }
 
     @Override
     public double getCircumference() {
-        return 2 * width + 2 * length;
+        return 4 * width;
     }
 }

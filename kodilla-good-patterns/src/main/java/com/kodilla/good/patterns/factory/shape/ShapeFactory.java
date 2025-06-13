@@ -1,4 +1,4 @@
-package com.kodilla.good.patterns.factory;
+package com.kodilla.good.patterns.factory.shape;
 
 public final class ShapeFactory {
     public static final String CIRCLE = "CIRCLE";

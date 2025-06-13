@@ -1,4 +1,4 @@
-package com.kodilla.good.patterns.factory;
+package com.kodilla.good.patterns.factory.shape;
 
 import org.junit.jupiter.api.Test;
 
