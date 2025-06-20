@@ -1,0 +1,42 @@
+create table ISSUESLISTS (
+    ID serial primary key,
+    NAME varchar(100) not null
+);
+
+create table ISSUES (
+    ID serial primary key,
+    ISSUESLISTS_ID bigint unsigned not null,
+    SUMMARY varchar(255) not null,
+    DESCRIPTION text,
+    USER_ID_ASSIGNEDTO bigint unsigned,
+    foreign key (ISSUESLISTS_ID) references ISSUESLISTS (ID),
+    foreign key (USER_ID_ASSIGNEDTO) references USERS (ID)
+);
+
+insert into ISSUESLISTS (NAME)
+values
+    ('ToDo'),
+    ('In progress'),
+    ('Done');
+
+INSERT INTO ISSUES (ISSUESLISTS_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES
+    (1, 'Stworzyć szkielet strony głównej', 'Należy przygotować wstępną strukturę HTML oraz dodać podstawowe style CSS.', 1),
+    (2, 'Zaimplementować logowanie', 'Backend ma umożliwiać logowanie za pomocą emaila i hasła z walidacją.', 4),
+    (3, 'Zamknięcie sprintu 1', 'Wszystkie zadania z pierwszego sprintu zostały zakończone, trzeba je oznaczyć jako Done.', 3),
+    (1, 'Dodać testy jednostkowe', 'Użyć frameworka PHPUnit do pokrycia krytycznych funkcji testami.', 5),
+    (2, 'Poprawić responsywność', 'Strona źle wygląda na ekranach mobilnych – trzeba dostosować media queries.', 1),
+    (3, 'Zmergować pull request #42', 'Kod został zrecenzowany – PR może zostać połączony z główną gałęzią.', 3),
+    (1, 'Przygotować brief dla klienta', 'Wstępny dokument powinien zawierać zakres funkcjonalny i makiety.', NULL),
+    (2, 'Zintegrować API pogodowe', 'Pobieranie danych z OpenWeatherMap i wyświetlanie ich na dashboardzie.', 1),
+    (3, 'Przeprowadzić testy UAT', 'Zespół testowy ma sprawdzić system przed wdrożeniem produkcyjnym.', 5),
+    (2, 'Zoptymalizować zapytania SQL', 'Aktualne zapytania do bazy danych są zbyt wolne – wymagają indeksowania.', NULL),
+    (3, 'Zamknąć zgłoszenie #108', 'Klient potwierdził, że problem z logowaniem został rozwiązany.', 6),
+    (1, 'Zaprojektować nowe logo', 'Wersja wektorowa oraz kilka koncepcji kolorystycznych.', 1),
+    (2, 'Naprawić błąd z formularzem kontaktowym', 'Formularz nie przesyła wiadomości – podejrzewamy problem z JS.', 4),
+    (3, 'Zrobić backup bazy danych', 'Przed migracją środowiska należy wykonać pełną kopię zapasową.', NULL),
+    (1, 'Zebrać wymagania od zespołu marketingu', 'Nowa kampania wymaga dostosowania interfejsu użytkownika.', 5);
+
+select * from ISSUES;
+
+commit;
