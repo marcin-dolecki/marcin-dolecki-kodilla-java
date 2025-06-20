@@ -1,0 +1,15 @@
+# 1
+select il.NAME, i.SUMMARY, i.DESCRIPTION
+from ISSUES i
+join ISSUESLISTS il on i.ISSUESLISTS_ID = il.ID;
+
+# 2
+select i.SUMMARY, i.DESCRIPTION, u.FIRSTNAME, u.LASTNAME
+from ISSUES i
+join USERS u on i.USER_ID_ASSIGNEDTO = u.ID;
+
+# 3
+select u.FIRSTNAME, u.LASTNAME, count(*) as NUMBER_OF_ISSUES
+from USERS u
+join ISSUES i on u.ID = i.USER_ID_ASSIGNEDTO
+group by u.ID;
