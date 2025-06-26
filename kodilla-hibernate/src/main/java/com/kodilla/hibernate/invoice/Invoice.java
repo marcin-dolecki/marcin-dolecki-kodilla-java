@@ -19,6 +19,9 @@ public class Invoice {
     public Invoice(String number, List<Item> items) {
         this.number = number;
         this.items = items;
+        for (Item item : items) {
+            item.setInvoice(this);
+        }
     }
 
     @Id

@@ -47,11 +47,6 @@ public class InvoiceDaoTestSuite {
         Invoice invoice1 = new Invoice("FV/2025/05", List.of(item1, item2));
         Invoice invoice2 = new Invoice("FV/2025/06", List.of(item3, item4, item5));
 
-        item1.setInvoice(invoice1);
-        item2.setInvoice(invoice1);
-        item3.setInvoice(invoice2);
-        item4.setInvoice(invoice2);
-        item5.setInvoice(invoice2);
         invoiceDao.save(invoice1);
         invoiceDao.save(invoice2);
 
@@ -65,7 +60,7 @@ public class InvoiceDaoTestSuite {
         assertEquals(2, invoice1FromDb.getItems().size());
         assertEquals(3, invoice2FromDb.getItems().size());
 
-//        invoiceDao.deleteAll();
-//        productDao.deleteAll();
+        invoiceDao.deleteAll();
+        productDao.deleteAll();
     }
 }
