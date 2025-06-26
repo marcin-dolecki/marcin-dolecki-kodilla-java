@@ -3,6 +3,7 @@ package com.kodilla.hibernate.invoice.dao;
 import com.kodilla.hibernate.invoice.Invoice;
 import com.kodilla.hibernate.invoice.Item;
 import com.kodilla.hibernate.invoice.Product;
+import com.kodilla.hibernate.invoice.service.InvoiceService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class InvoiceDaoTestSuite {
 
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    private InvoiceService invoiceService;
+    @Autowired
+    private ItemDao itemDao;
 
     @Test
     void testInvoiceDaoSave() {
@@ -42,21 +47,23 @@ public class InvoiceDaoTestSuite {
         Invoice invoice1 = new Invoice("FV/2025/05", List.of(item1, item2));
         Invoice invoice2 = new Invoice("FV/2025/06", List.of(item3, item4, item5));
 
+        item1.setInvoice(invoice1);
+        item2.setInvoice(invoice1);
+        item3.setInvoice(invoice2);
+        item4.setInvoice(invoice2);
+        item5.setInvoice(invoice2);
         invoiceDao.save(invoice1);
         invoiceDao.save(invoice2);
+
         int invoiceId1 = invoice1.getId();
         int invoiceId2 = invoice2.getId();
-//        Invoice invoice1FromDb = invoiceDao.findById(invoiceId1).get();
-//        Invoice invoice2FromDb = invoiceDao.findById(invoiceId2).get();
+        Invoice invoice1FromDb = invoiceService.getInvoiceWithItems(invoiceId1);
+        Invoice invoice2FromDb = invoiceService.getInvoiceWithItems(invoiceId2);
 
-        assertTrue(invoiceDao.findById(invoiceId1).isPresent());
-        assertTrue(invoiceDao.findById(invoiceId2).isPresent());
-        assertEquals(2, invoiceDao.findById(invoiceId1).get().getItems().size());
-        assertEquals(3, invoiceDao.findById(invoiceId2).get().getItems().size());
-//        assertEquals(invoice1FromDb.getId(), invoiceId1);
-//        assertEquals(invoice2FromDb.getId(), invoiceId2);
-//        assertEquals(2, invoice1FromDb.getItems().size());
-//        assertEquals(3, invoice2FromDb.getItems().size());
+        assertEquals(invoice1FromDb.getId(), invoiceId1);
+        assertEquals(invoice2FromDb.getId(), invoiceId2);
+        assertEquals(2, invoice1FromDb.getItems().size());
+        assertEquals(3, invoice2FromDb.getItems().size());
 
 //        invoiceDao.deleteAll();
 //        productDao.deleteAll();
