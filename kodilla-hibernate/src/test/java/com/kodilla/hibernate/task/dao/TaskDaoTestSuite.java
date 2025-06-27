@@ -20,6 +20,10 @@ class TaskDaoTestSuite {
 
     @Autowired
     private TaskDao taskDao;
+
+    @Autowired
+    private TaskListDao taskListDao;
+
     private static final String DESCRIPTION = "Test: Learn Hibernate";
 
     @Test
@@ -77,9 +81,19 @@ class TaskDaoTestSuite {
         task3.setTaskList(taskList);
         task4.setTaskList(taskList);
 
-        TaskListDao.save(taskList);
+        taskListDao.save(taskList);
+        int id = taskList.getId();
 
-        
+        List<Task> longTasks = taskDao.retrieveLongTasks();
+        List<Task> shortTasks = taskDao.retrieveShortTasks();
+        List<Task> enoughTimeTask = taskDao.retrieveTasksWithEnoughTime();
 
-    }
+        try {
+            assertEquals(1, longTasks.size());
+            assertEquals(3, shortTasks.size());
+            assertEquals(3, enoughTimeTask.size());
+        } finally {
+            taskListDao.deleteById(id);
+        }
+    }   
 }
