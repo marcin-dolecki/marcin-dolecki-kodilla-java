@@ -6,6 +6,12 @@ import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedNativeQuery(
+        name = "Company.retrieveCompaniesByFirst3Letters",
+        query = "SELECT * FROM companies" +
+                " WHERE company_name LIKE CONCAT(?1, '%')",
+        resultClass = Company.class
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
