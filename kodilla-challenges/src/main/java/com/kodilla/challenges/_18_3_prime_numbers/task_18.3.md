@@ -1,0 +1,1 @@
+Czy pamiętasz ze szkoły liczby pierwsze? To takie liczby, które dzielą się bez reszty jedynie przez 1 oraz samą siebie. Napisz program, który zbada pierwszeństwo podanej liczby. Kluczowy algorytm zamknij w osobnej funkcji/metodzie. Funkcja ta powinna zwracać informację, czy liczba z argumentu wejściowego jest liczbą pierwszą, czy też nie (nie wyświetlaj niczego na ekranie).
