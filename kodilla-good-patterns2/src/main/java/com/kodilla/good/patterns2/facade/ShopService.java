@@ -3,9 +3,11 @@ package com.kodilla.good.patterns2.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class ShopService {
@@ -50,6 +52,34 @@ public class ShopService {
                     theOrder.getItems().remove(n);
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    public BigDecimal calculateValue(Long orderId) {
+        Iterator<Order> orderIterator = orders.stream()
+                .filter(o -> o.getOrderId().equals(orderId))
+                .iterator();
+        while (orderIterator.hasNext()) {
+            Order theOrder = orderIterator.next();
+            return theOrder.calculateValue();
+        }
+        return BigDecimal.ZERO;
+    }
+
+    public boolean doPayment(Long orderId) {
+        Iterator<Order> orderIterator = orders.stream()
+                .filter(o -> o.getOrderId().equals(orderId))
+                .iterator();
+        while (orderIterator.hasNext()) {
+            Order theOrder = orderIterator.next();
+            if (theOrder.isPaid()) {
+                return true;
+            } else {
+                Random generator = new Random();
+                theOrder.setPaid(generator.nextBoolean());
+                return theOrder.isPaid();
             }
         }
         return false;
