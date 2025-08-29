@@ -9,4 +9,5 @@ include 'kodilla-spring-web'
 include 'kodilla-jdbc'
 include 'kodilla-hibernate'
 include 'kodilla-challenges'
+include 'kodilla-good-patterns2'
 
