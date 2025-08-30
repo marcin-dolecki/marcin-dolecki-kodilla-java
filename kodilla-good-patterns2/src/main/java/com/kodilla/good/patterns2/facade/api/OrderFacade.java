@@ -45,6 +45,24 @@ public class OrderFacade {
             }
             LOGGER.info("Payment for order was done");
 
+            if (!shopService.verifyOrder(orderId)) {
+                LOGGER.error(OrderProcessingException.ERR_VERIFICATION_ERROR);
+                wasError = true;
+                throw new OrderProcessingException(OrderProcessingException.ERR_VERIFICATION_ERROR);
+            }
+            LOGGER.info("Order is ready to submit");
+
+            if (!shopService.submitOrder(orderId)) {
+                LOGGER.error(OrderProcessingException.ERR_SUBMITTING_ERROR);
+                wasError = true;
+                throw new OrderProcessingException(OrderProcessingException.ERR_SUBMITTING_ERROR);
+            }
+            LOGGER.info("Order {} submitted", orderId);
+        } finally {
+            if (wasError) {
+                LOGGER.info("Canceling order {}", orderId);
+                shopService.cancelOrder(orderId);
+            }
         }
     }
 }
