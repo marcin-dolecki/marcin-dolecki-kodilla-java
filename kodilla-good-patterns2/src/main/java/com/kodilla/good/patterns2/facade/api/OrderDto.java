@@ -10,6 +10,10 @@ public final class OrderDto {
         items.add(item);
     }
 
+    public void removeItemById(final Long productId) {
+        items.removeIf(item -> item.getProductId().equals(productId));
+    }
+
     public List<ItemDto> getItems() {
         return items;
     }
