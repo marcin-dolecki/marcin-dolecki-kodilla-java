@@ -6,7 +6,7 @@ import java.util.List;
 public final class OrderDto {
     private final List<ItemDto> items = new ArrayList<>();
 
-    private void addItem(final ItemDto item) {
+    public void addItem(final ItemDto item) {
         items.add(item);
     }
 
