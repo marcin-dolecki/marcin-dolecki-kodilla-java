@@ -113,4 +113,21 @@ class TaxiOrderTestSuite {
         //Then
         assertEquals("Drive a course by Uber Network + child seat + child seat", description);
     }
+
+    @Test
+    void testVipTaxiWithChildSeatExpressGetCost() {
+        //Given
+        TaxiOrder theOrder = new BasicTaxiOrder();
+        theOrder = new TaxiNetworkOrderDecorator(theOrder);
+        theOrder = new ExpressDecorator(theOrder);
+        theOrder = new VipCarDecorator(theOrder);
+        theOrder = new ChildSeatDecorator(theOrder);
+        System.out.println(theOrder.getCost());
+
+        //When
+        BigDecimal theCost = theOrder.getCost();
+
+        //Then
+        assertEquals(new BigDecimal(57), theCost);
+    }
 }
