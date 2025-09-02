@@ -6,13 +6,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Aspect
 @Component
 public class Watcher {
     private static final Logger LOGGER = LoggerFactory.getLogger(Watcher.class);
 
-    @Before("execution(* com.kodilla.good.patterns2.aop.calculator.Calculator.factorial(..))")
-    public void logEvent() {
-        LOGGER.info("Logging the event");
+    @Before("execution(* com.kodilla.good.patterns2.aop.calculator.Calculator.factorial(..))"
+    + "&& args(theNumber) && target(object)")
+    public void logEvent(BigDecimal theNumber, Object object) {
+        LOGGER.info("Class: {}, Args: {}", object.getClass().getName(), theNumber);
     }
 }
