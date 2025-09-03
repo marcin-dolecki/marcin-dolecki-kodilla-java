@@ -6,10 +6,17 @@ import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedQuery(
-        name = "Employee.retrieveEmployeesBySurname",
-        query = "FROM Employee WHERE lastName = :LAST_NAME"
-)
+@NamedQueries({
+        @NamedQuery(
+                name = "Employee.retrieveEmployeesBySurname",
+                query = "FROM Employee WHERE lastName = :LAST_NAME"
+        ),
+        @NamedQuery(
+                name = "Employee.retrieveEmployeesByNameFragment",
+                query = "FROM Employee WHERE lastName LIKE :ARG"
+        )
+})
+
 @Entity
 @Table(name = "EMPLOYEES")
 public class Employee {
