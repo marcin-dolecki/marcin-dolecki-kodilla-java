@@ -1,6 +1,7 @@
 package com.kodilla.hibernate.manytomany.facade;
 
 import com.kodilla.hibernate.manytomany.Company;
+import com.kodilla.hibernate.manytomany.Employee;
 import com.kodilla.hibernate.manytomany.dao.CompanyDao;
 import com.kodilla.hibernate.manytomany.dao.EmployeeDao;
 import org.junit.jupiter.api.Test;
@@ -35,5 +36,20 @@ class SearchFacadeTestSuite {
         assertEquals("Software Machine", result.get(0).getName());
 
         companyDao.deleteAll();
+    }
+
+    @Test
+    void testFindEmployeesByNameFragment() {
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        employeeDao.save(johnSmith);
+        employeeDao.save(stephanieClarckson);
+
+        List<Employee> result = searchFacade.findEmployeesByNameFragment("mith");
+
+        assertEquals(1, result.size());
+        assertEquals("Smith", result.get(0).getLastName());
+
+        employeeDao.deleteAll();
     }
 }
