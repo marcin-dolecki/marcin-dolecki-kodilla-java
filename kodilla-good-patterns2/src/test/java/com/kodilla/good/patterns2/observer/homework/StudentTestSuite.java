@@ -27,7 +27,7 @@ class StudentTestSuite {
         studentKamil.addTask("Java medium");
         studentMarek.addTask("Java basics");
         studentMarek.addTask("Java advanced");
-        
+
         assertEquals(3, studentBartek.getNumberOfTasks());
         assertEquals(2, studentKamil.getNumberOfTasks());
         assertEquals(3, studentMarek.getNumberOfTasks());
