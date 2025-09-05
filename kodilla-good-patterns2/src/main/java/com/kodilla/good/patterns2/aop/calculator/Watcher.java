@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Aspect
-@Component
+@Component("calculatorWatcher")
 public class Watcher {
     private static final Logger LOGGER = LoggerFactory.getLogger(Watcher.class);
 
