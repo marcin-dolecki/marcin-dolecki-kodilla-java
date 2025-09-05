@@ -1,0 +1,3 @@
+Zadanie dodatkowe Konwerter liczby dziesiętnej na binarną
+
+Napisz program, który zamieni liczby całkowite w systemie dziesiętnym na liczby całkowite zapisane w systemie dwójkowym (binarnym). Kluczowy algorytm zamknij w osobnej funkcji/metodzie, która będzie przyjmować jeden argument wejściowy (liczba dziesiętna powinna być zapisana w pamięci jako liczba całkowita (nie jako string)). Po obliczeniach funkcja ta powinna zwracać wynik w postaci ciągu znaków (string).
