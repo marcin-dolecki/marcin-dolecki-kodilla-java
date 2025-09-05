@@ -20,7 +20,7 @@ public class OrderFacade {
         this.shopService = shopService;
     }
 
-    public void processOrder(final OrderDto order, final Long userId) throws OrderProcessingException {
+    public Long processOrder(final OrderDto order, final Long userId) throws OrderProcessingException {
         boolean wasError = false;
         Long orderId = shopService.openOrder(userId);
         LOGGER.info("Registering new order, ID: {}", orderId);
@@ -66,5 +66,6 @@ public class OrderFacade {
                 shopService.cancelOrder(orderId);
             }
         }
+        return orderId;
     }
 }

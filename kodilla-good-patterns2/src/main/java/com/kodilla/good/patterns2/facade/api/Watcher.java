@@ -1,5 +1,6 @@
 package com.kodilla.good.patterns2.facade.api;
 
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
@@ -17,5 +18,13 @@ public class Watcher {
     + "&& args(order, userId) && target(object)")
     public void logEvent(OrderDto order, Long userId, Object object) {
         LOGGER.info("Class: {}, Order: {}, UserID: {}", object.getClass().getSimpleName(), order, userId);
+    }
+
+    @AfterReturning(
+            pointcut = "execution(* com.kodilla.good.patterns2.facade.api.OrderFacade.processOrder(..))"
+                    + "&& args(order, userId) && target(object)",
+            returning = "orderId")
+    public void logEventAfter(OrderDto order, long orderId, Long userId, Object object) {
+        LOGGER.info("Class: {}, OrderID: {}, UserID: {}", object.getClass().getSimpleName(), orderId, userId);
     }
 }
