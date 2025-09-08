@@ -1,0 +1,3 @@
+Zadanie dodatkowe Zmieniamy string w liczbę
+
+Napisz program, który zamieni liczbę zapisaną jako łańcuch znaków (np. “2040”) na liczbę całkowitą w programie tak, aby możliwa była konwersja danych wprowadzonych przez użytkownika na zmienne, których możemy użyć do obliczeń matematycznych. Kluczowy algorytm zamknij w osobnej metodzie, która zwróci obliczoną wartość jako liczbę całkowitą (ang. integer). Obsłuż błędy, takie jak niedozwolone znaki (litery, przecinki, kropki itp).
