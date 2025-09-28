@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StoredProcTestSuite {
     @Test
-    public void testUpdateVipLevels() throws SQLException {
+    void testUpdateVipLevels() throws SQLException {
         //Given
         DbManager dbManager = DbManager.getInstance();
         String sqlUpdate = "UPDATE READERS SET VIP_LEVEL = 'Not set'";
