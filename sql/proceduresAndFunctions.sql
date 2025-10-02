@@ -478,3 +478,7 @@ DROP EVENT UPDATE_VIPS;
 
 #
 SELECT * FROM BOOKS;
+
+# 28.6 Indexes and queries plans
+SELECT USER();
+
