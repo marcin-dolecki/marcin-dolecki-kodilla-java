@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.kodilla.testing2'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation("org.seleniumhq.selenium:selenium-java:4.35.0")
+}
+
+test {
+    useJUnitPlatform()
+}
