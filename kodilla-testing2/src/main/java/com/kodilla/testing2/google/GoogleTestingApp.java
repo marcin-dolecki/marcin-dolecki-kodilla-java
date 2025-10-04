@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 public class GoogleTestingApp {
     public static final String SEARCHFIELD = "q";
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         WebDriver driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
         driver.get("https://www.google.com");
 
