@@ -5,10 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class CrudAppTestingApp {
     public static final String XPATH_INPUT = "//html/body/main/section/form/fieldset/input";
     public static final String XPATH_TEXTAREA = "//html/body/main/section/form/fieldset[2]/textarea";
+    public static final String XPATH_SELECT = "//select[1]";
 
     public static void main(String[] args) {
         WebDriver driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
@@ -19,5 +21,11 @@ public class CrudAppTestingApp {
 
         WebElement textAreaTaskContentField = driver.findElement(By.xpath(XPATH_TEXTAREA));
         textAreaTaskContentField.sendKeys("The robotic content");
+
+        while (!driver.findElement(By.xpath(XPATH_SELECT)).isDisplayed());
+
+        WebElement selectBoardField = driver.findElement(By.xpath(XPATH_SELECT));
+        Select selectBoard = new Select(selectBoardField);
+        selectBoard.selectByIndex(1);
     }
 }
