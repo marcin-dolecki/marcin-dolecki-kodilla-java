@@ -16,10 +16,11 @@ class CrudAppTestSuite {
     private Random generator;
 
     @BeforeEach
-    public void initTests() {
+    public void initTests() throws InterruptedException {
         driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
         driver.get(BASE_URL);
         generator = new Random();
+        Thread.sleep(1000);
     }
 
     @AfterEach
@@ -37,14 +38,16 @@ class CrudAppTestSuite {
 
         WebElement name = driver.findElement(By.xpath(XPATH_INPUT_TASK_NAME));
         name.sendKeys(taskName);
+        Thread.sleep(1000);
 
         WebElement content = driver.findElement(By.xpath(XPATH_INPUT_TASK_CONTENT));
         content.sendKeys(taskContent);
+        Thread.sleep(1000);
 
         WebElement addButton = driver.findElement(By.xpath(XPATH_ADD_TASK_BUTTON));
         addButton.click();
+        Thread.sleep(1000);
 
-        Thread.sleep(2000);
     }
 
 }
