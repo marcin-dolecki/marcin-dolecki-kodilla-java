@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.Random;
 
@@ -45,15 +46,50 @@ class CrudAppTestSuite {
 
         WebElement addButton = driver.findElement(By.xpath(XPATH_ADD_TASK_BUTTON));
         addButton.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         return taskName;
+    }
+
+    private void sendTestTaskToTrello(String taskName) {
+        final String XPATH_SELECT = "//select[1]";
+        final String XPATH_FORMS = "//form[@class='datatable__row']";
+        final String XPATH_FORM_VALUE = ".//p[@class='datatable__field-value']";
+        final String XPATH_FORM_SELECT = ".//select[1]";
+        final String XPATH_FORM_BUTTON = ".//button[@type='button' and contains(@class, 'card-creation')]";
+
+        driver.navigate().refresh();
+
+        while(!driver.findElement(By.xpath(XPATH_SELECT)).isDisplayed());
+
+        driver.findElements(By.xpath(XPATH_FORMS)).stream()
+                .filter(anyForm ->
+                        anyForm.findElement(By.xpath(XPATH_FORM_VALUE))
+                                .getText().equals(taskName))
+                .forEach(theForm -> {
+                    WebElement selectElement = theForm.findElement(By.xpath(XPATH_FORM_SELECT));
+                    Select select = new Select(selectElement);
+                    select.selectByIndex(1);
+                    threadSleep(1000);
+
+                    WebElement buttonCreateCard = theForm.findElement(By.xpath(XPATH_FORM_BUTTON));
+                    buttonCreateCard.click();
+                    threadSleep(2000);
+                });
+    }
+
+    private void threadSleep(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     void shouldCreateTrelloCard() throws InterruptedException {
         String taskName = createCrudAppTestTask();
-        System.out.println(taskName);
+        sendTestTaskToTrello(taskName);
     }
 
 }
