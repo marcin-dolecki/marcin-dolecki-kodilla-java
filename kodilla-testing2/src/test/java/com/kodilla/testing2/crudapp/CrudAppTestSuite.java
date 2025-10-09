@@ -28,8 +28,7 @@ class CrudAppTestSuite {
         driver.close();
     }
 
-    @Test
-    void shouldCreateTrelloCard() throws InterruptedException {
+    private String createCrudAppTestTask() throws InterruptedException {
         final String XPATH_INPUT_TASK_NAME = "//form[@data-task-add-form]//input[@name='title']";
         final String XPATH_INPUT_TASK_CONTENT = "//form[@data-task-add-form]//textarea[@name='content']";
         final String XPATH_ADD_TASK_BUTTON = "//form[@data-task-add-form]//button[@type='submit']";
@@ -48,6 +47,13 @@ class CrudAppTestSuite {
         addButton.click();
         Thread.sleep(1000);
 
+        return taskName;
+    }
+
+    @Test
+    void shouldCreateTrelloCard() throws InterruptedException {
+        String taskName = createCrudAppTestTask();
+        System.out.println(taskName);
     }
 
 }
