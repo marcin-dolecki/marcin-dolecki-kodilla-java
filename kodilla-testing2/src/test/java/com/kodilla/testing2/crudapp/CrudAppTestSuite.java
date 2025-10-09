@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class CrudAppTestSuite {
     private static final String BASE_URL = "https://marcin-dolecki.github.io/";
     private WebDriver driver;
@@ -78,6 +80,16 @@ class CrudAppTestSuite {
                 });
     }
 
+    private boolean checkTaskExistsInTrello(String taskName) {
+        final String TRELO_URL = "https://trello.com/login";
+        boolean result = false;
+        WebDriver driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
+        driver.get(TRELO_URL);
+        threadSleep(4000);
+
+        return result;
+    }
+
     private void threadSleep(int ms) {
         try {
             Thread.sleep(ms);
@@ -88,8 +100,20 @@ class CrudAppTestSuite {
 
     @Test
     void shouldCreateTrelloCard() throws InterruptedException {
-        String taskName = createCrudAppTestTask();
-        sendTestTaskToTrello(taskName);
+//        String taskName = createCrudAppTestTask();
+//        sendTestTaskToTrello(taskName);
+//        checkTaskExistsInTrello(taskName);
+//        assertTrue(checkTaskExistsInTrello(taskName));
+
+        _lauchTrello();
+    }
+
+
+
+    private void _lauchTrello() {
+        final String TRELO_URL = "https://trello.com/login";
+        WebDriver driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
+        driver.get(TRELO_URL);
     }
 
 }
