@@ -14,6 +14,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -121,9 +122,11 @@ class CrudAppTestSuite {
         final String XPATH_PASSWORD_INPUT = "//form[@data-testid='form-login']//input[@data-testid='password']";
         final String XPATH_LOGIN_BUTTON = "//form[@data-testid='form-login']//button[@data-testid='login-submit-idf-testid']";
         final String XPATH_KODILLA_BOARD_LINK = "//a[@aria-label='Kodilla Application']";
+        final String XPATH_KODILLA_CARD_NAME = "//a[@data-testid='card-name']";
         Dotenv dotenv = Dotenv.load();
         final String email = dotenv.get("TRELLO_EMAIL");
         final String password = dotenv.get("TRELLO_PASSWORD");
+        String result = "";
 
         WebDriver driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
         driver.get(TRELLO_URL);
@@ -150,6 +153,11 @@ class CrudAppTestSuite {
         );
         kodillaBoardLink.click();
         threadSleep(4000);
+
+        List<WebElement> cards = driver.findElements(By.xpath(XPATH_KODILLA_CARD_NAME));
+        for (WebElement card : cards) {
+            System.out.println(card.getText());
+        }
 
     }
 
