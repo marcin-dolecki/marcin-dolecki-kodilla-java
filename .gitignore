@@ -1,5 +1,5 @@
 HELP.md
-.env
+kodilla-testing2/src/test/resources/.env
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
