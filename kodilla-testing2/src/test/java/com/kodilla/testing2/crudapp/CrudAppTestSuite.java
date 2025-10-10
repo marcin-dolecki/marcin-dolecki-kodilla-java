@@ -4,9 +4,7 @@ import com.kodilla.testing2.config.WebDriverConfig;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -82,16 +80,62 @@ class CrudAppTestSuite {
 
                     WebElement buttonCreateCard = theForm.findElement(By.xpath(XPATH_FORM_BUTTON));
                     buttonCreateCard.click();
-                    threadSleep(2000);
+
+                    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+                    try {
+                        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+                        System.out.println("Alert text: " + alert.getText());
+                        alert.accept();
+                    } catch (TimeoutException e) {
+                        System.out.println("Alert is not there for 10 seconds");
+                    }
+
+                    threadSleep(1000);
                 });
+
     }
 
     private boolean checkTaskExistsInTrello(String taskName) {
-        final String TRELO_URL = "https://trello.com/login";
+        final String TRELLO_URL = "https://trello.com/login";
+        final String XPATH_EMAIL_INPUT = "//form[@data-testid='form-login']//input[@data-testid='username']";
+        final String XPATH_PASSWORD_INPUT = "//form[@data-testid='form-login']//input[@data-testid='password']";
+        final String XPATH_LOGIN_BUTTON = "//form[@data-testid='form-login']//button[@data-testid='login-submit-idf-testid']";
+        final String XPATH_KODILLA_BOARD_LINK = "//a[@aria-label='Kodilla Application']";
+        final String XPATH_KODILLA_CARD_NAME = "//a[@data-testid='card-name']";
+        Dotenv dotenv = Dotenv.load();
+        final String email = dotenv.get("TRELLO_EMAIL");
+        final String password = dotenv.get("TRELLO_PASSWORD");
         boolean result = false;
+
         WebDriver driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
-        driver.get(TRELO_URL);
+        driver.get(TRELLO_URL);
         threadSleep(4000);
+
+        WebElement emailInput = driver.findElement(By.xpath(XPATH_EMAIL_INPUT));
+        emailInput.sendKeys(email);
+        threadSleep(1000);
+
+        WebElement button = driver.findElement(By.xpath(XPATH_LOGIN_BUTTON));
+        button.click();
+        threadSleep(1000);
+
+        WebElement passwordInput = driver.findElement(By.xpath(XPATH_PASSWORD_INPUT));
+        passwordInput.sendKeys(password);
+        threadSleep(1000);
+
+        button.click();
+        threadSleep(4000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement kodillaBoardLink = wait.until(
+                ExpectedConditions.elementToBeClickable(By.xpath(XPATH_KODILLA_BOARD_LINK))
+        );
+        kodillaBoardLink.click();
+        threadSleep(4000);
+
+        result = driver.findElements(By.xpath(XPATH_KODILLA_CARD_NAME)).stream()
+                .anyMatch(card -> card.getText().equals(taskName));
 
         return result;
     }
@@ -106,12 +150,12 @@ class CrudAppTestSuite {
 
     @Test
     void shouldCreateTrelloCard() throws InterruptedException {
-//        String taskName = createCrudAppTestTask();
-//        sendTestTaskToTrello(taskName);
-//        checkTaskExistsInTrello(taskName);
-//        assertTrue(checkTaskExistsInTrello(taskName));
+        String taskName = createCrudAppTestTask();
+        System.out.println(taskName);
+        sendTestTaskToTrello(taskName);
+        assertTrue(checkTaskExistsInTrello(taskName));
 
-        _lauchTrello();
+//        _lauchTrello();
     }
 
 
