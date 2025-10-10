@@ -7,8 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import io.github.cdimascio.dotenv.Dotenv;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -111,9 +116,41 @@ class CrudAppTestSuite {
 
 
     private void _lauchTrello() {
-        final String TRELO_URL = "https://trello.com/login";
+        final String TRELLO_URL = "https://trello.com/login";
+        final String XPATH_EMAIL_INPUT = "//form[@data-testid='form-login']//input[@data-testid='username']";
+        final String XPATH_PASSWORD_INPUT = "//form[@data-testid='form-login']//input[@data-testid='password']";
+        final String XPATH_LOGIN_BUTTON = "//form[@data-testid='form-login']//button[@data-testid='login-submit-idf-testid']";
+        final String XPATH_KODILLA_BOARD_LINK = "//a[@aria-label='Kodilla Application']";
+        Dotenv dotenv = Dotenv.load();
+        final String email = dotenv.get("TRELLO_EMAIL");
+        final String password = dotenv.get("TRELLO_PASSWORD");
+
         WebDriver driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
-        driver.get(TRELO_URL);
+        driver.get(TRELLO_URL);
+        threadSleep(4000);
+
+        WebElement emailInput = driver.findElement(By.xpath(XPATH_EMAIL_INPUT));
+        emailInput.sendKeys(email);
+        threadSleep(1000);
+
+        WebElement button = driver.findElement(By.xpath(XPATH_LOGIN_BUTTON));
+        button.click();
+        threadSleep(1000);
+
+        WebElement passwordInput = driver.findElement(By.xpath(XPATH_PASSWORD_INPUT));
+        passwordInput.sendKeys(password);
+        threadSleep(1000);
+
+        button.click();
+        threadSleep(4000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement kodillaBoardLink = wait.until(
+                ExpectedConditions.elementToBeClickable(By.xpath(XPATH_KODILLA_BOARD_LINK))
+        );
+        kodillaBoardLink.click();
+        threadSleep(4000);
+
     }
 
 }
