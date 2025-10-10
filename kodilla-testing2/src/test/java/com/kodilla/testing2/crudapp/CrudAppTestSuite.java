@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CrudAppTestSuite {
@@ -140,6 +141,28 @@ class CrudAppTestSuite {
         return result;
     }
 
+    private void removeTestTaskFromCrudApp(String taskName) {
+        final String XPATH_FORM = "//form[@class='datatable__row'][1]";
+        final String XPATH_FORMS = "//form[@class='datatable__row']";
+        final String XPATH_FORM_VALUE = ".//p[@class='datatable__field-value']";
+        final String XPATH_DELETE_BUTTON = ".//button[@type='button' and @data-task-delete-button]";
+
+        driver.get(BASE_URL);
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_FORM)));
+
+        driver.findElements(By.xpath(XPATH_FORMS)).stream()
+                .filter(anyForm ->
+                        anyForm.findElement(By.xpath(XPATH_FORM_VALUE))
+                                .getText().equals(taskName))
+                .forEach(theForm -> {
+                    WebElement buttonDeleteCard = theForm.findElement(By.xpath(XPATH_DELETE_BUTTON));
+                    threadSleep(1000);
+                    buttonDeleteCard.click();
+                    threadSleep(1000);
+                });
+    }
+
     private void threadSleep(int ms) {
         try {
             Thread.sleep(ms);
@@ -154,6 +177,6 @@ class CrudAppTestSuite {
         System.out.println(taskName);
         sendTestTaskToTrello(taskName);
         assertTrue(checkTaskExistsInTrello(taskName));
+        removeTestTaskFromCrudApp(taskName);
     }
-
 }
