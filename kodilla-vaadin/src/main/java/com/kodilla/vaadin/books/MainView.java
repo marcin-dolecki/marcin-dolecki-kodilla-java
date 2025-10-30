@@ -15,7 +15,8 @@ public class MainView extends VerticalLayout {
     private Grid<Book> grid = new Grid<>(Book.class);
 
     public MainView() {
-        grid.setColumns("title", "author", "publicationYear", "type");
+//        grid.setColumns("type", "author", "publicationYear"); // not required, but we can set only specific columns and wanted sequence.
+//        grid.getColumnByKey("publicationYear").setHeader("publicationYear"); // we can modify the header name. Vaadin automatically does Publication Year
         add(grid);
         setSizeFull();
         refresh();
