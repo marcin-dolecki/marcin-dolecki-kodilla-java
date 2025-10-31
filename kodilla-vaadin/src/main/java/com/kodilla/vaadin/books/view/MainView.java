@@ -2,6 +2,7 @@ package com.kodilla.vaadin.books.view;
 
 import com.kodilla.vaadin.books.domain.Book;
 import com.kodilla.vaadin.books.service.BookService;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -16,6 +17,7 @@ public class MainView extends VerticalLayout {
     private Grid<Book> grid = new Grid<>(Book.class);
     private TextField filter = new TextField();
     private BookForm form = new BookForm(this);
+    private Button addNewBook =  new Button("Add new book");
 
     public MainView() {
         filter.setPlaceholder("Filter by title");
@@ -23,14 +25,19 @@ public class MainView extends VerticalLayout {
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.addValueChangeListener(event -> update());
         grid.removeColumnByKey("id");
+        addNewBook.addClickListener(event -> {
+            grid.asSingleSelect().clear();
+            form.setBook(new Book());
+        });
 //        grid.setColumns("type", "author", "publicationYear"); // not required, but we can set only specific columns and wanted sequence.
 //        grid.getColumnByKey("publicationYear").setHeader("publicationYear"); // we can modify the header name. Vaadin automatically does Publication Year
+        HorizontalLayout toolbar = new HorizontalLayout(filter, addNewBook);
         HorizontalLayout mainContent = new HorizontalLayout(grid, form);
         mainContent.setSizeFull();
         grid.setSizeFull();
         form.setBook(null);
 
-        add(filter, mainContent);
+        add(toolbar, mainContent);
         setSizeFull();
         refresh();
 
