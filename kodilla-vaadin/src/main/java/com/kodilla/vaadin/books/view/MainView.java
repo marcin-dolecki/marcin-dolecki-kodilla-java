@@ -22,15 +22,19 @@ public class MainView extends VerticalLayout {
         filter.setClearButtonVisible(true);
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.addValueChangeListener(event -> update());
+        grid.removeColumnByKey("id");
 //        grid.setColumns("type", "author", "publicationYear"); // not required, but we can set only specific columns and wanted sequence.
 //        grid.getColumnByKey("publicationYear").setHeader("publicationYear"); // we can modify the header name. Vaadin automatically does Publication Year
         HorizontalLayout mainContent = new HorizontalLayout(grid, form);
         mainContent.setSizeFull();
         grid.setSizeFull();
+        form.setBook(null);
 
         add(filter, mainContent);
         setSizeFull();
         refresh();
+
+        grid.asSingleSelect().addValueChangeListener(event -> form.setBook(grid.asSingleSelect().getValue()));
     }
 
     private void update() {

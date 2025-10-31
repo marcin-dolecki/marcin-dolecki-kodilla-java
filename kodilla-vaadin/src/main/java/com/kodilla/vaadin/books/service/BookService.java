@@ -47,10 +47,11 @@ public class BookService {
     }
 
     public void save(Book book) {
+        this.books.removeIf(b -> b.getId().equals(book.getId()));
         this.books.add(book);
     }
 
     public void delete(Book book) {
-        this.books.remove(book);
+        this.books.removeIf(b -> b.getId().equals(book.getId()));
     }
 }
