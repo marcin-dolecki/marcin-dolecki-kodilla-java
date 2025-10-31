@@ -4,6 +4,7 @@ import com.kodilla.vaadin.books.domain.Book;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BookService {
     private Set<Book> books;
@@ -38,5 +39,9 @@ public class BookService {
         books.add(new Book("The Handmaid's Tale", "Margaret Atwood", "2019", "Classic"));
         books.add(new Book("Watch Us Rise", "Renée Watson,  Ellen Hagan", "2019", "Poetry"));
         return books;
+    }
+
+    public Set<Book> findByTitle(String title) {
+        return books.stream().filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase())).collect(Collectors.toSet());
     }
 }
